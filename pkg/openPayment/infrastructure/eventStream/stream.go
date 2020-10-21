@@ -25,27 +25,28 @@ func NewInMemoryStream() *InMemoryStream {
 	}
 }
 
-func (ims InMemoryStream) Publish(event openPayment.Event) error {
+func (ims *InMemoryStream) Publish(event openPayment.Event) error {
 	ims.stream = append(ims.stream, event)
 	log.Debug().Fields(map[string]interface{}{
 		"eventId":   event.ID,
 		"eventType": event.Type,
+		"streamLen": len(ims.stream),
 	}).Msg("event published")
 
 	return nil
 }
 
-func (ims InMemoryStream) Listen(receive chan openPayment.Event) error {
+func (ims *InMemoryStream) Listen(receive chan openPayment.Event) error {
 	defer close(receive)
 
 	for {
 		time.Sleep(time.Second)
 		event, err := ims.next()
 		if _, emptyStream := err.(streamEmpty); emptyStream {
-			log.Debug().Msg("stream empty")
+			log.Debug().Msg(err.Error())
 			continue
 		}
-		
+
 		log.Debug().Fields(map[string]interface{}{
 			"eventId":   event.ID,
 			"eventType": event.Type,
