@@ -38,6 +38,12 @@ func (h *Handler) AddReceiver(receiver Receiver) {
 		send:    send,
 		receive: receive,
 	}
+
+	go func(receiver Receiver, newEvents, processedEvents chan openPayment.Event) {
+		if err := receiver.Receive(send, receive); err != nil {
+			log.Error().Err(err).Msgf("error from %s", receiver)
+		}
+	}(receiver, send, receive)
 }
 
 func (h *Handler) Handle(wg *sync.WaitGroup) error {
