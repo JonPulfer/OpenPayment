@@ -42,10 +42,34 @@ func TestInMemoryStream_Listen(t *testing.T) {
 
 	event := openPayment.NewEvent("test", testData)
 
-	err = ims.Publish(event)
-	select {
-	case receivedEvent := <-receive:
-		assert.Equal(t, event.ID, receivedEvent.ID)
-	}
+	require.Nil(t, ims.Publish(event))
+	receivedEvent := <-receive
+	assert.Equal(t, event.ID, receivedEvent.ID)
 
+	testPayload2 := struct {
+		Name string `json:"name"`
+	}{
+		"tester2",
+	}
+	testData2, err := json.Marshal(&testPayload2)
+	require.Nil(t, err)
+
+	event2 := openPayment.NewEvent("test", testData2)
+
+	require.Nil(t, ims.Publish(event2))
+
+	testPayload3 := struct {
+		Name string `json:"name"`
+	}{
+		"tester3",
+	}
+	testData3, err := json.Marshal(&testPayload3)
+	require.Nil(t, err)
+
+	event3 := openPayment.NewEvent("test", testData3)
+
+	require.Nil(t, ims.Publish(event3))
+
+	received2 := <-receive
+	assert.Equal(t, event2.ID, received2.ID)
 }
