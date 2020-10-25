@@ -16,8 +16,8 @@ import (
 func TestHandler_Handle(t *testing.T) {
 	ims := eventStream.NewInMemoryStream()
 	handler := NewHandler(ims)
-	testReceiver := TestReceiver{}
-	handler.AddReceiver(testReceiver)
+	testSubscriber := TestSubscriber{}
+	handler.Subscribe(testSubscriber)
 
 	var handlerWg sync.WaitGroup
 	handlerWg.Add(1)
@@ -41,9 +41,9 @@ func TestHandler_Handle(t *testing.T) {
 	time.Sleep(2 * time.Second)
 }
 
-type TestReceiver struct{}
+type TestSubscriber struct{}
 
-func (tr TestReceiver) Receive(newEvents, processedEvents chan openPayment.Event) error {
+func (tr TestSubscriber) Receive(newEvents, processedEvents chan openPayment.Event) error {
 	for received := range newEvents {
 		log.Debug().Fields(map[string]interface{}{
 			"eventId": received.ID,
@@ -53,6 +53,6 @@ func (tr TestReceiver) Receive(newEvents, processedEvents chan openPayment.Event
 	return nil
 }
 
-func (tr TestReceiver) String() string {
-	return "TestReceiver"
+func (tr TestSubscriber) String() string {
+	return "TestSubscriber"
 }
