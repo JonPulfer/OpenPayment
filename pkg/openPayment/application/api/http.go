@@ -8,8 +8,8 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 
+	"github.com/JonPulfer/OpenPayment/pkg/openPayment/application/service/account"
 	"github.com/JonPulfer/OpenPayment/pkg/openPayment/infrastructure/eventStream"
-	"github.com/JonPulfer/OpenPayment/pkg/openPayment/service/account"
 )
 
 type HTTPServer struct {
