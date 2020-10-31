@@ -65,8 +65,29 @@ func (sa SimpleAccount) Receive(newEvents, processedEvents chan openPayment.Even
 				}).Err(err).Msg("failed to add account")
 				continue
 			}
+			processedEvents <- ev
+		case openPayment.AccountUpdateEvent:
+			err := sa.handleAccountUpdateEvent(ev)
+			if err != nil {
+				log.Error().Fields(map[string]interface{}{
+					"eventId": ev.ID,
+				}).Err(err).Msg("failed to update account")
+				continue
+			}
+		case openPayment.AccountDeleteEvent:
+			err := sa.handleAccountDeleteEvent(ev)
+			if err != nil {
+				log.Error().Fields(map[string]interface{}{
+					"eventId": ev.ID,
+				}).Err(err).Msg("failed to delete account")
+				continue
+			}
 		}
 
+		log.Debug().Fields(map[string]interface{}{
+			"eventId":   ev.ID,
+			"eventType": ev.Type,
+		}).Msg("processed event")
 	}
 
 	return nil
@@ -80,6 +101,30 @@ func (sa SimpleAccount) handleAccountAddEvent(ev openPayment.Event) error {
 	}
 
 	sa.accounts[acc.Number] = acc
+
+	return nil
+}
+
+func (sa SimpleAccount) handleAccountUpdateEvent(ev openPayment.Event) error {
+
+	acc, err := extractAccount(ev.Data)
+	if err != nil {
+		return err
+	}
+
+	sa.accounts[acc.Number] = acc
+
+	return nil
+}
+
+func (sa SimpleAccount) handleAccountDeleteEvent(ev openPayment.Event) error {
+
+	acc, err := extractAccount(ev.Data)
+	if err != nil {
+		return err
+	}
+
+	delete(sa.accounts, acc.Number)
 
 	return nil
 }
