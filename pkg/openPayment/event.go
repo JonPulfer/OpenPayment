@@ -28,3 +28,10 @@ func NewEvent(eventType string, data []byte) Event {
 		Data:         data,
 	}
 }
+
+// Account events
+const (
+	AccountAddEvent    = "account add"
+	AccountUpdateEvent = "account update"
+	AccountDeleteEvent = "account delete"
+)
