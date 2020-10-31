@@ -17,8 +17,8 @@ type HTTPServer struct {
 	account account.Account
 }
 
-func NewHTTPServer(stream eventStream.EventStream) *HTTPServer {
-	return &HTTPServer{stream: stream}
+func NewHTTPServer(stream eventStream.EventStream, account account.Account) *HTTPServer {
+	return &HTTPServer{stream: stream, account: account}
 }
 
 func (hs HTTPServer) Run() error {
