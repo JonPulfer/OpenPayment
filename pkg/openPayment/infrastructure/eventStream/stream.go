@@ -43,7 +43,6 @@ func (ims *InMemoryStream) Listen(receive chan openPayment.Event) error {
 		time.Sleep(time.Second)
 		event, err := ims.next()
 		if _, emptyStream := err.(streamEmpty); emptyStream {
-			log.Debug().Msg(err.Error())
 			continue
 		}
 
