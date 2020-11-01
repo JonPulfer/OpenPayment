@@ -74,6 +74,7 @@ func (sa SimpleAccount) Receive(newEvents, processedEvents chan openPayment.Even
 				}).Err(err).Msg("failed to update account")
 				continue
 			}
+			processedEvents <- ev
 		case openPayment.AccountDeleteEvent:
 			err := sa.handleAccountDeleteEvent(ev)
 			if err != nil {
@@ -82,6 +83,7 @@ func (sa SimpleAccount) Receive(newEvents, processedEvents chan openPayment.Even
 				}).Err(err).Msg("failed to delete account")
 				continue
 			}
+			processedEvents <- ev
 		}
 
 		log.Debug().Fields(map[string]interface{}{

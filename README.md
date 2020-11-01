@@ -38,21 +38,21 @@ state.
 
 ```text
 go run ./cmd/simpleAccountWebservice/main.go
-{"severity":"debug","eventId":"cbc769ce-719b-4890-bc4f-1137049254ad","eventType":"account add","streamLen":1,"time":"2020-11-01T20:11:52Z","message":"event published"}
-{"severity":"debug","time":"2020-11-01T20:11:52Z","message":"processed account add request"}
-{"severity":"debug","eventId":"cbc769ce-719b-4890-bc4f-1137049254ad","eventType":"account add","time":"2020-11-01T20:11:52Z","message":"event received"}
-{"severity":"debug","eventId":"cbc769ce-719b-4890-bc4f-1137049254ad","time":"2020-11-01T20:11:52Z","message":"received event"}
-{"severity":"debug","eventId":"cbc769ce-719b-4890-bc4f-1137049254ad","time":"2020-11-01T20:11:52Z","message":"event processed by all subscribers"}
-{"severity":"debug","eventId":"cbc769ce-719b-4890-bc4f-1137049254ad","eventType":"account add","time":"2020-11-01T20:11:52Z","message":"received account event"}
-{"severity":"debug","eventId":"cbc769ce-719b-4890-bc4f-1137049254ad","eventType":"account add","time":"2020-11-01T20:11:52Z","message":"processed event"}
-{"severity":"debug","eventId":"cbc769ce-719b-4890-bc4f-1137049254ad","time":"2020-11-01T20:11:52Z","message":"event processed by simple account"}
-{"severity":"debug","accountNumber":"123456789","time":"2020-11-01T20:11:56Z","message":"processed account get request"}
-{"severity":"debug","eventId":"ca6b12e9-e3ae-4d59-a7f0-f637df226b13","eventType":"account update","streamLen":2,"time":"2020-11-01T20:11:59Z","message":"event published"}
-{"severity":"debug","time":"2020-11-01T20:11:59Z","message":"processed account update request"}
-{"severity":"debug","eventId":"ca6b12e9-e3ae-4d59-a7f0-f637df226b13","eventType":"account update","time":"2020-11-01T20:12:00Z","message":"event received"}
-{"severity":"debug","eventId":"ca6b12e9-e3ae-4d59-a7f0-f637df226b13","time":"2020-11-01T20:12:00Z","message":"received event"}
-{"severity":"debug","eventId":"ca6b12e9-e3ae-4d59-a7f0-f637df226b13","time":"2020-11-01T20:12:00Z","message":"event processed by all subscribers"}
-{"severity":"debug","eventId":"ca6b12e9-e3ae-4d59-a7f0-f637df226b13","eventType":"account update","time":"2020-11-01T20:12:00Z","message":"received account event"}
-{"severity":"debug","eventId":"ca6b12e9-e3ae-4d59-a7f0-f637df226b13","eventType":"account update","time":"2020-11-01T20:12:00Z","message":"processed event"}
-{"severity":"debug","accountNumber":"123456789","time":"2020-11-01T20:12:05Z","message":"processed account get request"}
+{"severity":"debug","eventId":"8e1203dc-582e-4abe-bc1a-a9995449f03c","eventType":"account add","streamLen":1,"time":"2020-11-01T20:43:52Z","message":"event published"}
+{"severity":"debug","time":"2020-11-01T20:43:52Z","message":"processed account add request"}
+{"severity":"debug","eventId":"8e1203dc-582e-4abe-bc1a-a9995449f03c","eventType":"account add","time":"2020-11-01T20:43:53Z","message":"event received"}
+{"severity":"debug","eventId":"8e1203dc-582e-4abe-bc1a-a9995449f03c","time":"2020-11-01T20:43:53Z","message":"received event"}
+{"severity":"debug","eventId":"8e1203dc-582e-4abe-bc1a-a9995449f03c","eventType":"account add","time":"2020-11-01T20:43:53Z","message":"received account event"}
+{"severity":"debug","eventId":"8e1203dc-582e-4abe-bc1a-a9995449f03c","eventType":"account add","time":"2020-11-01T20:43:53Z","message":"processed event"}
+{"severity":"debug","eventId":"8e1203dc-582e-4abe-bc1a-a9995449f03c","time":"2020-11-01T20:43:53Z","message":"event processed by simple account"}
+{"severity":"debug","eventId":"8e1203dc-582e-4abe-bc1a-a9995449f03c","time":"2020-11-01T20:43:53Z","message":"event processed by all subscribers"}
+{"severity":"debug","eventId":"2fdc3ffc-a57c-494a-b678-d8ad34e5ef1b","eventType":"account update","streamLen":2,"time":"2020-11-01T20:43:56Z","message":"event published"}
+{"severity":"debug","time":"2020-11-01T20:43:56Z","message":"processed account update request"}
+{"severity":"debug","eventId":"2fdc3ffc-a57c-494a-b678-d8ad34e5ef1b","eventType":"account update","time":"2020-11-01T20:43:56Z","message":"event received"}
+{"severity":"debug","eventId":"2fdc3ffc-a57c-494a-b678-d8ad34e5ef1b","time":"2020-11-01T20:43:56Z","message":"received event"}
+{"severity":"debug","eventId":"2fdc3ffc-a57c-494a-b678-d8ad34e5ef1b","eventType":"account update","time":"2020-11-01T20:43:56Z","message":"received account event"}
+{"severity":"debug","eventId":"2fdc3ffc-a57c-494a-b678-d8ad34e5ef1b","eventType":"account update","time":"2020-11-01T20:43:56Z","message":"processed event"}
+{"severity":"debug","eventId":"2fdc3ffc-a57c-494a-b678-d8ad34e5ef1b","time":"2020-11-01T20:43:56Z","message":"event processed by simple account"}
+{"severity":"debug","eventId":"2fdc3ffc-a57c-494a-b678-d8ad34e5ef1b","time":"2020-11-01T20:43:56Z","message":"event processed by all subscribers"}
+{"severity":"debug","accountNumber":"123456789","time":"2020-11-01T20:44:01Z","message":"processed account get request"}
 ```

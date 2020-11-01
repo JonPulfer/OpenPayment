@@ -77,11 +77,10 @@ func (h *Handler) deliverEvent(newEvent openPayment.Event) {
 		go h.sendToReceiver(newEvent, pendingSubscriber, &waitForSubscribers)
 	}
 
+	waitForSubscribers.Wait()
 	log.Debug().Fields(map[string]interface{}{
 		"eventId": newEvent.ID,
 	}).Msg("event processed by all subscribers")
-
-	waitForSubscribers.Wait()
 }
 
 func (h *Handler) sendToReceiver(newEvent openPayment.Event,
