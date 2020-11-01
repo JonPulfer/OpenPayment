@@ -33,7 +33,8 @@ func (hs HTTPServer) Run() error {
 	r.Route("/account", func(r chi.Router) {
 		r.Post("/", hs.addAccount)
 		r.Get("/{accountNumber}", hs.getAccount)
-		r.Post("/{accountNumber}", hs.updateAccount)
+		r.Put("/{accountNumber}", hs.updateAccount)
+		r.Delete("/{accountNumber}", hs.deleteAccount)
 	})
 
 	return http.ListenAndServe(":8080", r)
@@ -145,6 +146,45 @@ func (hs HTTPServer) updateAccount(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	log.Debug().Msg("processed account update request")
+	requestDone(w)
+}
+
+func (hs HTTPServer) deleteAccount(w http.ResponseWriter, r *http.Request) {
+	accountNumber := chi.URLParam(r, "accountNumber")
+	accountNum, err := strconv.Atoi(accountNumber)
+	if err != nil {
+		http.Error(w, "invalid account number", http.StatusBadRequest)
+		log.Error().Err(err).Msg("invalid account number")
+		return
+	}
+	fetchedAccount, err := hs.account.Fetch(accountNum)
+	if err != nil {
+		http.Error(w, "failed to get account", http.StatusInternalServerError)
+		log.Error().Err(err).Fields(map[string]interface{}{
+			"accountNumber": accountNumber,
+		}).Msg("failed to get account")
+		return
+	}
+
+	var buf bytes.Buffer
+	err = json.NewEncoder(&buf).Encode(&fetchedAccount)
+	if err != nil {
+		http.Error(w, "failed to create delete data", http.StatusInternalServerError)
+		log.Error().Err(err).Fields(map[string]interface{}{
+			"accountNumber":  accountNum,
+			"updatedAccount": fetchedAccount,
+		}).Msg("failed to create account delete data")
+		return
+	}
+
+	ev := openPayment.NewEvent(openPayment.AccountDeleteEvent, buf.Bytes())
+	err = hs.stream.Publish(ev)
+	if err != nil {
+		http.Error(w, "failed to publish account delete event", http.StatusInternalServerError)
+		log.Error().Err(err).Msg("failed to publish account delete event")
+		return
+	}
+	log.Debug().Msg("processed account delete request")
 	requestDone(w)
 }
 
